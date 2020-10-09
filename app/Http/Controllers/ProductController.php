@@ -39,6 +39,14 @@ class ProductController extends Controller
 
     public function store(Request  $request)
     {
+        if(empty($request->description) || empty($request->hall)  || empty($request->shelf) || empty($request->side))
+        {
+
+            echo "<script type='text/javascript'>alert('Preencha todos os campos');</script>";
+
+            return redirect()->route('newProduct');
+        };
+
         $data = [
         "description" => strtoupper($request->description),
         "hall" => strtoupper($request->hall),
@@ -57,6 +65,13 @@ class ProductController extends Controller
 
     public function editProduct(Product $product,Request $request)
     {
+        if(empty($request->description) || empty($request->hall)  || empty($request->shelf) || empty($request->side))
+        {
+
+            echo "<script type='text/javascript'>alert('Preencha todos os campos');</script>";
+
+            return redirect()->back();
+        };
 
         $data = [
             "description" => strtoupper($request->description),

@@ -58,8 +58,8 @@
           <div class="col-md-4 mb-3">
             <label for="state">Direção</label>
             <select class="custom-select d-block w-100" id="state"  name="side" required>
-              <option>Direita</option>
-              <option>Esquerda</option>
+              <option>DIREITA</option>
+              <option>ESQUERDA</option>
             </select>
           </div>
         </div>
