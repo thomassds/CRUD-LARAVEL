@@ -42,9 +42,9 @@ class ProductController extends Controller
         if(empty($request->description) || empty($request->hall)  || empty($request->shelf) || empty($request->side))
         {
 
-            echo "<script type='text/javascript'>alert('Preencha todos os campos');</script>";
+            echo "<script type='text/javascript'>alert('Preencha todos os campos');window.location.href='/newProduct';</script>";
 
-            return redirect()->route('newProduct');
+            return;
         };
 
         $data = [
@@ -68,9 +68,9 @@ class ProductController extends Controller
         if(empty($request->description) || empty($request->hall)  || empty($request->shelf) || empty($request->side))
         {
 
-            echo "<script type='text/javascript'>alert('Preencha todos os campos');</script>";
+            echo "<script type='text/javascript'>alert('Preencha todos os campos');window.location.href='/product/edit/$product->id'</script>";
 
-            return redirect()->back();
+            return;
         };
 
         $data = [
