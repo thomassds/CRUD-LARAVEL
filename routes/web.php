@@ -17,6 +17,8 @@ Route::get('/', 'App\Http\Controllers\ProductController@listProducts')->name('pr
 
 Route::get('/product/edit/{product}', 'App\Http\Controllers\ProductController@viewEdit')->name('viewEdit');
 
+Route::get('/newProduct', 'App\Http\Controllers\ProductController@newProduct')->name('newProduct');
+
 Route::post('/post', 'App\Http\Controllers\ProductController@store')->name('post');
 
 Route::put('/product/edit/{product}', 'App\Http\Controllers\ProductController@editProduct')->name('editProduct');

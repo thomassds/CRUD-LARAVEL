@@ -4,12 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Yahp\Services\ProductService;
 
 class ProductController extends Controller
 {
+    /**
+     * @var ProductService
+     */
+    private $service;
+    /**
+     * @var ProductController
+     */
+    private $productController;
+
+    /**
+     * Example Service constructor.
+     * @param ProductController $productService
+     */
+    public function __construct(ProductService $productService)
+    {
+        $this->service = $productService;
+    }
+
+    /**
+     * @return mixed
+     */
     public function listProducts()
     {
-        $products =  Product::all();
+        $products =  $this->service->renderList();
         return view('listProducts', [
             'products' => $products
         ]);
@@ -17,25 +39,34 @@ class ProductController extends Controller
 
     public function store(Request  $request)
     {
-        var_dump($request->except(['_token']));
-
-        $product = new Product();
-        $product->description = strtoupper($request->description);
-        $product->hall = strtoupper($request->hall);
-        $product->shelf = strtoupper($request->shelf);
-        $product->side = strtoupper($request->side);
-        $product->save();
+        $data = [
+        "description" => strtoupper($request->description),
+        "hall" => strtoupper($request->hall),
+        "shelf" => strtoupper($request->shelf),
+        "side" => strtoupper($request->side),
+        ];
+        $this->service->buildInsert($data);
 
         return redirect()->route('products.listAll');
     }
 
+    public function newProduct()
+    {
+        return view('newProduct');
+    }
+
     public function editProduct(Product $product,Request $request)
     {
-        $product->description = strtoupper($request->description);
-        $product->hall = strtoupper($request->hall);
-        $product->shelf = strtoupper($request->shelf);
-        $product->side = strtoupper($request->side);
-        $product->save();
+
+        $data = [
+            "description" => strtoupper($request->description),
+            "hall" => strtoupper($request->hall),
+            "shelf" => strtoupper($request->shelf),
+            "side" => strtoupper($request->side),
+            ];
+
+        $this->service->buildUpdate(($id = $product->id), $data);
+
         return redirect()->route('products.listAll');
     }
 
@@ -48,7 +79,7 @@ class ProductController extends Controller
 
     public function destroyProduct(Product $product)
     {
-        $product->delete();
+        $this->service->buildDelete(($id = $product->id));
         return redirect()->route('products.listAll');
     }
 }

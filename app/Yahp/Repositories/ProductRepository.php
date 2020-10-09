@@ -2,9 +2,9 @@
 
 namespace App\Yahp\Repositories;
 
-use App\Yahp\Models\Example;
+use App\Yahp\Models\Product;
 
-class ExampleRepository
+class ProductRepository
 {
     /**
      * @var Role
@@ -13,11 +13,11 @@ class ExampleRepository
 
     /**
      * Example Respository constructor.
-     * @param Example $example
+     * @param Product $example
      */
-    public function __construct(Example $example)
+    public function __construct(Product $product)
     {
-        $this->model = $example;
+        $this->model = $product;
     }
 
     /**

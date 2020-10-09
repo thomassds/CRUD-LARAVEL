@@ -9,147 +9,65 @@
 
     <link rel="stylesheet" href="{{ asset('site/bootstrap.css') }}"/>
 </head>
+<style>
 
-    <style>
-        body{
-            margin: 0 0 0 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: #1b1e21;
-        }
-        view#register{
-            margin-top: 100px;
-            border-radius: 10px;
-            width: 1200px;
-            height: 300px;
-            background: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        form#formRegister{
-            width: 1200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-        }
-
-        div#inputs{
-            width: 1000px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        view#products{
-            margin-top: 30px;
-            border-radius: 10px;
-            width: 700px;
-            height: 200px;
-            background: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-        }
-        table {
-            width: 500px;
-
-        }
-
-        div#productsInputs{
-        display: flex;
-        justify-content: space-between;
-
-        }
-
-
-    </style>
+    div#productsInputs{
+    display: flex;
+    justify-content: space-evenly;
+    }
+</style>
 
 <body>
+@extends('layouts.app')
+@section('content')
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
-    <view id="register">
-        <h1> Xastre Market </h1>
-        <form id= "formRegister" action="{{route('post')}}" method="post">
-            @csrf
-            <div id="inputs">
-                <div>
-                    <label>Descrição</label>
-                        <br>
-                    <input type="text" name="description">
-                </div>
+      <h2>Lista de Produtos</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Descrição</th>
+              <th>Corredor</th>
+              <th>Prateleira</th>
+              <th>Lado</th>
+              <th>Editar</th>
+              <th>Excluir</th>
+            </tr>
+          </thead>
+          <tbody>
+          @foreach($products as $product)
+            <tr>
+                <td>{{ $product->id }}</td>
+                <td>{{ $product->description }}</td>
+                <td>{{ $product->hall }}</td>
+                <td>{{ $product->shelf }}</td>
+                <td>{{ $product->side }}</td>
+                <td>
 
-                <div>
-                    <label>Corredor</label>
-                        <br>
-                    <input type="text" name="hall">
-                </div>
+                    <form action="{{ route('editProduct', ['product' =>$product->id]) }}" method="get">
+                        @csrf
+                        <input type="hidden" name="description" value="{{ $product->id }}}">
+                        <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ route('destroyProduct', ['product' =>$product->id]) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <input type="hidden" name="description" value="{{ $product->id }}}">
+                        <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                    </form>
 
-                <div>
-                    <label>Prateleira</label>
-                        <br>
-                    <input type="text" name="shelf">
-                </div>
-
-                <div>
-                    <label>Direção</label>
-                        <br>
-                    <input type="text" name="side">
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
-
-        </form>
-    </view>
-    <br>
-
-    <view id="products">
-    <table>
-        <tr>
-            <td>ID</td>
-            <td>Descrição</td>
-            <td>Corredor</td>
-            <td>Prateleira</td>
-            <td>Lado</td>
-        </tr>
-
-        @foreach($products as $product)
-        <tr>
-            <td>{{ $product->id }}</td>
-            <td>{{ $product->description }}</td>
-            <td>{{ $product->hall }}</td>
-            <td>{{ $product->shelf }}</td>
-            <td>{{ $product->side }}</td>
-            <td>
-
-
-            <div id="productsInputs">
-                <form action="{{ route('editProduct', ['product' =>$product->id]) }}" method="get">
-                    @csrf
-                    <input type="hidden" name="description" value="{{ $product->id }}}">
-                    <button type="submit" class="btn btn-primary btn-sm">Editar</button>
-                </form>
-                <form action="{{ route('destroyProduct', ['product' =>$product->id]) }}" method="post">
-                    @csrf
-                    @method('delete')
-                    <input type="hidden" name="description" value="{{ $product->id }}}">
-                    <button type="submit" class="btn btn-danger btn-sm">Remover</button>
-                </form>
-            </div>
-            </td>
-        </tr>
-        @endforeach
-    </table>
-    </view>
-
+                </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </main>
+@stop
 <script src="{{ asset('site/jquery.js') }}"></script>
 <script src="{{ asset('site/bootstrap.js') }}"></script>
 

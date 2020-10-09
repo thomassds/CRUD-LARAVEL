@@ -2,27 +2,27 @@
 
 namespace App\Yahp\Services;
 
-use App\Yahp\Repositories\ExampleRepository;
+use App\Yahp\Repositories\ProductRepository;
 use App\Yahp\Contracts\ServiceContract;
 
-class ExampleService implements ServiceContract
+class ProductService implements ServiceContract
 {
      /**
-     * @var ExampleRepository
+     * @var ProductRepository
      */
     private $repository;
      /**
-     * @var ExampleService
+     * @var ProductService
      */
-    private $exampleService;
+    private $productService;
 
     /**
      * Example Service constructor.
-     * @param ExampleRepository $exampleRepository
+     * @param ProductService $productRepository
      */
-    public function __construct(ExampleRepository $exampleRepository)
+    public function __construct(ProductRepository $productRepository)
     {
-        $this->repository = $exampleRepository;
+        $this->repository = $productRepository;
     }
 
     /**
@@ -32,7 +32,7 @@ class ExampleService implements ServiceContract
     {
         return $this->repository->getAll();
     }
-    
+
     /**
      * @param $id
      * @return mixed

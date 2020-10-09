@@ -29,14 +29,13 @@
 @extends('layouts.app')
 @section('content')
 <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Alterar Produto</h4>
-      <form class="needs-validation" novalidate action="{{ route( 'editProduct', [ 'product' => $product->id ] ) }}" method="post">
-        @csrf
-        @method('put')
+      <h4 class="mb-3">Novo Produto</h4>
+      <form class="needs-validation" novalidate action="{{route('post')}}" method="post">
+      @csrf
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="description">Descrição</label>
-            <input type="text" class="form-control" id="description"  name="description" placeholder="" value="{{ $product->description }}" required>
+            <input type="text" class="form-control" id="description"  name="description" placeholder="" value="" required>
           </div>
         </div>
 
@@ -45,29 +44,27 @@
           <div class="col-md-5 mb-3">
             <label for="country">Corredor</label>
             <select class="custom-select d-block w-100" id="country"  name="hall" required>
-                <option value="{{ $product->hall }}">{{ $product->hall }}</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
             </select>
           </div>
 
           <div class="col-md-3 mb-3">
             <label for="zip">Prateleira</label>
-            <input type="text" class="form-control" id="zip" placeholder="" name="shelf" value="{{ $product->shelf }}" required>
+            <input type="text" class="form-control" id="zip" placeholder="" name="shelf" required>
           </div>
 
           <div class="col-md-4 mb-3">
             <label for="state">Direção</label>
             <select class="custom-select d-block w-100" id="state"  name="side" required>
-                <option value= "{{ $product->side }}">{{ $product->side }}</option>
-                <option>DIREITA</option>
-                <option>ESQUERDA</option>
+              <option>Direita</option>
+              <option>Esquerda</option>
             </select>
           </div>
         </div>
 
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
         </form>
 @stop
 <script src="{{ asset('site/jquery.js') }}"></script>
